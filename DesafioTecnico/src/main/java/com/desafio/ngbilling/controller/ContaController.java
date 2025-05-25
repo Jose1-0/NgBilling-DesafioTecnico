@@ -23,9 +23,7 @@ public class ContaController {
 	@PostMapping
 	public ResponseEntity<ContaDTO> criarConta(@RequestBody ContaDTO contaDTO){
 		
-		Conta conta = new Conta(contaDTO.getNumero_conta(), contaDTO.getSaldo());
-		Conta novaConta = contaService.criarConta(conta);
-		
+		Conta novaConta = contaService.criarConta(contaDTO);		
 		return ResponseEntity.status(201).body(new ContaDTO(novaConta.getNumeroConta(), novaConta.getSaldo()));
 		
 	}

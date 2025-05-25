@@ -31,30 +31,37 @@ public class TransacaoService {
 	@Transactional
 	public Conta realizarTransacao(TransacaoDTO dto) {
 		
-		if (dto.getValor() == null || dto.getValor() <= 0) {
+	    Conta conta = validarTransacao(dto);
+
+	    String formaPagamento = dto.getFormaPagamento().toUpperCase();
+	    ITransacao transacaoService = transacaoMap.get(formaPagamento);
+
+	    transacaoService.transacao(conta, dto.getValor());
+
+	    contaRepository.save(conta);
+	    
+	    Transacao transacao = new Transacao(conta, dto.getFormaPagamento(), dto.getValor());
+	    transacaoRepository.save(transacao);
+
+	    return conta;
+	}
+	
+	private Conta validarTransacao(TransacaoDTO dto) {
+		
+	    if (dto.getValor() == null || dto.getValor() <= 0) {
 	        throw new TransacaoException("O valor da transação deve ser maior que zero");
 	    }
-		
-		Conta conta = contaRepository.findByNumeroConta(dto.getNumeroConta())
-				.orElseThrow(() -> new ContaExeption("conta não encontrada"));
-		
-		String formaPagamento = dto.getFormaPagamento().toUpperCase();
-		ITransacao transacaoService = transacaoMap.get(formaPagamento);
-		
-		if (transacaoService == null) {
-			throw new TransacaoException("Forma de pagamento inválida. Use P para Pix. Use D para débito e C para crédito");
-		}
 
-		transacaoService.transacao(conta, dto.getValor());
+	    String formaPagamento = dto.getFormaPagamento().toUpperCase();
+	    ITransacao transacaoService = transacaoMap.get(formaPagamento);
 
-		contaRepository.save(conta);
+	    Conta conta = contaRepository.findByNumeroConta(dto.getNumeroConta())
+	            .orElseThrow(() -> new ContaExeption("conta não encontrada"));
 
-		Transacao transacao = new Transacao();
-		transacao.setConta(conta);
-		transacao.setFormaPagamento(dto.getFormaPagamento());
-		transacao.setValor(dto.getValor());
-		transacaoRepository.save(transacao);
+	    if (transacaoService == null) {
+	        throw new TransacaoException("Forma de pagamento inválida. Use P para Pix. Use D para débito e C para crédito");
+	    }
 
-		return conta;
+	    return conta;
 	}
 }
