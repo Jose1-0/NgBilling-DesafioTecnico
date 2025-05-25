@@ -42,7 +42,7 @@ public class TransacaoService {
 		ITransacao transacaoService = transacaoMap.get(formaPagamento);
 		
 		if (transacaoService == null) {
-			throw new TransacaoException("Forma de pagamento inválida");
+			throw new TransacaoException("Forma de pagamento inválida. Use P para Pix. Use D para débito e C para crédito");
 		}
 
 		transacaoService.transacao(conta, dto.getValor());
