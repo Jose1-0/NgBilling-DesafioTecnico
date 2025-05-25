@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "e0120d12-bf4c-41f8-8241-da9175c99ea4",
+		"name": "Desafio Tecnioico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44889663",
+		"_collection_link": "https://zedamanga-6252780.postman.co/workspace/ze-da-manga's-Workspace~9a555667-d374-4c70-84bd-fc13951527de/collection/44889663-e0120d12-bf4c-41f8-8241-da9175c99ea4?action=share&source=collection_link&creator=44889663"
+	},
+	"item": [
+		{
+			"name": "Conta",
+			"item": [
+				{
+					"name": "criarConta - POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"numero_conta\": 5,\r\n  \"saldo\": 180.37\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/conta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transacao",
+			"item": [
+				{
+					"name": "transacao - POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"formaPagamento\":\"D\",\r\n  \"numeroConta\": 5,\r\n  \"valor\":130.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/transacao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verificarConta - GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/conta?numeroConta=23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta"
+							],
+							"query": [
+								{
+									"key": "numeroConta",
+									"value": "23"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
