@@ -17,21 +17,25 @@ public class ContaService {
 
 	public Conta criarConta(Conta conta) {
 
+		if (conta.getNumeroConta() == null || conta.getNumeroConta() < 0) {
+			throw new ContaExeption("Número de conta inválido");
+		}
+
 		if (conta.getSaldo() < 0) {
 			throw new ContaExeption("O saldo Inicial não pode ser negativo.");
 		}
 
 		Optional<Conta> contaExistente = contaRepository.findByNumeroConta(conta.getNumeroConta());
 		if (contaExistente.isPresent()) {
-			
+
 			throw new ContaExeption("Já existe uma conta com esse número.");
 		}
 
 		return contaRepository.save(conta);
 	}
-	
+
 	public Conta buscarConta(Integer numeroConta) {
-	    return contaRepository.findByNumeroConta(numeroConta)
-	            .orElseThrow(() -> new ContaExeption("Conta não encontrada com o número. Verifique o numero de conta digitao"));
+		return contaRepository.findByNumeroConta(numeroConta).orElseThrow(
+				() -> new ContaExeption("Conta não encontrada com o número. Verifique o numero de conta digitao"));
 	}
 }
