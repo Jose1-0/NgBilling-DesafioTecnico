@@ -7,14 +7,14 @@ import com.desafio.ngbilling.model.Conta;
 import com.desafio.ngbilling.service.ITransacao;
 
 @Service("P")
-public class PixTransacaoService implements ITransacao{
+public class PixTransacaoService implements ITransacao {
 
 	@Override
 	public void transacao(Conta conta, float valor) {
-
 		if (conta.getSaldo() < valor) {
-            throw new TransacaoException("Saldo insuficiente para transação Pix");
-        }
-        conta.setSaldo(conta.getSaldo() - valor);
-    }
+			throw new TransacaoException("Saldo insuficiente para transação Pix");
+		}
+		
+		conta.setSaldo(conta.getSaldo() - valor);
+	}
 }

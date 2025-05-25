@@ -1,7 +1,7 @@
 package com.desafio.ngbilling.exception;
 
 public class TransacaoException extends RuntimeException {
-	
+
 	/**
 	 * 
 	 */

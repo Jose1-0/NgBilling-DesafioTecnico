@@ -17,32 +17,31 @@ public class ContaService {
 	private ContaRepository contaRepository;
 
 	public Conta criarConta(ContaDTO contaDTO) {
-		
-        Conta conta = validarConta(contaDTO);
-        return contaRepository.save(conta);
+		Conta conta = validarConta(contaDTO);
+		return contaRepository.save(conta);
 	}
 
 	public Conta buscarConta(Integer numeroConta) {
-		return contaRepository.findByNumeroConta(numeroConta).orElseThrow(
-				() -> new ContaExeption("Conta não encontrada. Verifique o numero de conta digitao"));
+		return contaRepository.findByNumeroConta(numeroConta)
+				.orElseThrow(() -> new ContaExeption("Conta não encontrada. Verifique o numero de conta digitao"));
 	}
-	
-    private Conta validarConta(ContaDTO contaDTO) {
-        Conta conta = new Conta(contaDTO.getNumero_conta(), contaDTO.getSaldo());
 
-        if (conta.getNumeroConta() == null || conta.getNumeroConta() < 0) {
-            throw new ContaExeption("Número de conta inválido");
-        }
+	private Conta validarConta(ContaDTO contaDTO) {
+		Conta conta = new Conta(contaDTO.getNumero_conta(), contaDTO.getSaldo());
 
-        if (conta.getSaldo() == null || conta.getSaldo() < 0) {
-            throw new ContaExeption("O saldo Inicial não pode ser negativo.");
-        }
+		if (conta.getNumeroConta() == null || conta.getNumeroConta() < 0) {
+			throw new ContaExeption("Número de conta inválido");
+		}
 
-        Optional<Conta> contaExistente = contaRepository.findByNumeroConta(conta.getNumeroConta());
-        if (contaExistente.isPresent()) {
-            throw new ContaExeption("Já existe uma conta com esse número.");
-        }
+		if (conta.getSaldo() == null || conta.getSaldo() < 0) {
+			throw new ContaExeption("O saldo Inicial não pode ser negativo.");
+		}
 
-        return conta;
-    }
+		Optional<Conta> contaExistente = contaRepository.findByNumeroConta(conta.getNumeroConta());
+		if (contaExistente.isPresent()) {
+			throw new ContaExeption("Já existe uma conta com esse número.");
+		}
+
+		return conta;
+	}
 }

@@ -18,12 +18,12 @@ public class TransacaoController {
 
 	@Autowired
 	private TransacaoService transacaoService;
-	
+
 	@PostMapping
-	public ResponseEntity<?> realizarTransacao(@RequestBody TransacaoDTO dto){
-			Conta conta = transacaoService.realizarTransacao(dto);
-			ContaDTO contaDTO = new ContaDTO(conta.getNumeroConta(), conta.getSaldo());
-			return ResponseEntity.status(201).body(contaDTO);
-		
+	public ResponseEntity<?> realizarTransacao(@RequestBody TransacaoDTO dto) {
+		Conta conta = transacaoService.realizarTransacao(dto);
+		ContaDTO contaDTO = new ContaDTO(conta.getNumeroConta(), conta.getSaldo());
+
+		return ResponseEntity.status(201).body(contaDTO);
 	}
 }

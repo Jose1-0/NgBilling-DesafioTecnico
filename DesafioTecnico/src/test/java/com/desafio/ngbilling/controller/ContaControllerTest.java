@@ -23,49 +23,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ContaControllerTest {
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Mock
-    private ContaService contaService;
+	@Mock
+	private ContaService contaService;
 
-    @InjectMocks
-    private ContaController contaController;
+	@InjectMocks
+	private ContaController contaController;
 
-    private ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(contaController).build();
-        objectMapper = new ObjectMapper();
-    }
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
+		mockMvc = MockMvcBuilders.standaloneSetup(contaController).build();
+		objectMapper = new ObjectMapper();
+	}
 
-    @Test
-    void criarContaDeveRetornarCreated() throws Exception {
-        ContaDTO contaDTO = new ContaDTO(123, 100f);
-        Conta conta = new Conta(123, 100f);
+	@Test
+	void criarContaDeveRetornarCreated() throws Exception {
+		ContaDTO contaDTO = new ContaDTO(123, 100f);
+		Conta conta = new Conta(123, 100f);
 
-        when(contaService.criarConta(any(ContaDTO.class))).thenReturn(conta);
+		when(contaService.criarConta(any(ContaDTO.class))).thenReturn(conta);
 
-        mockMvc.perform(post("/conta")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(contaDTO)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.numero_conta").value(123))
-                .andExpect(jsonPath("$.saldo").value(100f));
-    }
+		mockMvc.perform(post("/conta").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(contaDTO))).andExpect(status().isCreated())
+				.andExpect(jsonPath("$.numero_conta").value(123)).andExpect(jsonPath("$.saldo").value(100f));
+	}
 
-    @Test
-    void buscarContaPorNumeroDeveRetornarOk() throws Exception {
-        Integer numeroConta = 123;
-        Conta conta = new Conta(numeroConta, 200f);
+	@Test
+	void buscarContaPorNumeroDeveRetornarOk() throws Exception {
+		Integer numeroConta = 123;
+		Conta conta = new Conta(numeroConta, 200f);
 
-        when(contaService.buscarConta(numeroConta)).thenReturn(conta);
+		when(contaService.buscarConta(numeroConta)).thenReturn(conta);
 
-        mockMvc.perform(get("/conta")
-                .param("numeroConta", numeroConta.toString()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numero_conta").value(123))
-                .andExpect(jsonPath("$.saldo").value(200f));
-    }
+		mockMvc.perform(get("/conta").param("numeroConta", numeroConta.toString())).andExpect(status().isOk())
+				.andExpect(jsonPath("$.numero_conta").value(123)).andExpect(jsonPath("$.saldo").value(200f));
+	}
 }

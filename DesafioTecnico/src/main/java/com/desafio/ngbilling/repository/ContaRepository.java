@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.desafio.ngbilling.model.Conta;
 
-public interface ContaRepository  extends JpaRepository<Conta, UUID>{
-	
+public interface ContaRepository extends JpaRepository<Conta, UUID> {
 	Optional<Conta> findByNumeroConta(Integer numeroConta);
 }

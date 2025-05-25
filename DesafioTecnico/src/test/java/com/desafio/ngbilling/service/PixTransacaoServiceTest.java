@@ -40,7 +40,7 @@ public class PixTransacaoServiceTest {
 		conta.setSaldo(10f);
 
 		float valor = 20f;
-		assertThrows(TransacaoException.class, () -> pixTransacaoService.transacao(conta, valor));
 
+		assertThrows(TransacaoException.class, () -> pixTransacaoService.transacao(conta, valor));
 	}
 }

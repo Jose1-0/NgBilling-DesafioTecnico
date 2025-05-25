@@ -16,21 +16,21 @@ import com.desafio.ngbilling.service.impl.ContaService;
 @RestController
 @RequestMapping("/conta")
 public class ContaController {
-	
+
 	@Autowired
 	private ContaService contaService;
-	
+
 	@PostMapping
-	public ResponseEntity<ContaDTO> criarConta(@RequestBody ContaDTO contaDTO){
-		
-		Conta novaConta = contaService.criarConta(contaDTO);		
+	public ResponseEntity<ContaDTO> criarConta(@RequestBody ContaDTO contaDTO) {
+		Conta novaConta = contaService.criarConta(contaDTO);
+
 		return ResponseEntity.status(201).body(new ContaDTO(novaConta.getNumeroConta(), novaConta.getSaldo()));
-		
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<ContaDTO> buscarContasPorNumero(@RequestParam("numeroConta") Integer numeroConta) {
-	    Conta conta = contaService.buscarConta(numeroConta);
-	    return ResponseEntity.ok(new ContaDTO(conta.getNumeroConta(), conta.getSaldo()));
+		Conta conta = contaService.buscarConta(numeroConta);
+
+		return ResponseEntity.ok(new ContaDTO(conta.getNumeroConta(), conta.getSaldo()));
 	}
 }

@@ -12,25 +12,24 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(ContaExeption.class)
 	public ResponseEntity<Object> handleContaException(ContaExeption ex) {
+		String msg = ex.getMessage();
+		HttpStatus status;
 
-        String msg = ex.getMessage();
+		if (msg.contains("não encontrada")) {
+			status = HttpStatus.NOT_FOUND;
+		} else if (msg.contains("negativo") || msg.contains("existe") || msg.contains("Número de conta inválido")) {
+			status = HttpStatus.BAD_REQUEST;
+		} else {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
 
-        HttpStatus status;
+		return new ResponseEntity<>(new ErrorDTO(msg), status);
+	};
 
-        if (msg.contains("não encontrada")) {
-            status = HttpStatus.NOT_FOUND;
-        } else if (msg.contains("negativo") || msg.contains("existe") || msg.contains("Número de conta inválido")) {
-            status = HttpStatus.BAD_REQUEST;
-        } else {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+	@ExceptionHandler(TransacaoException.class)
+	public ResponseEntity<Object> handleTransacaoException(TransacaoException ex) {
+		String msg = ex.getMessage();
 
-        return new ResponseEntity<>(new ErrorDTO(msg), status);
-    };
-    
-    @ExceptionHandler(TransacaoException.class)
-    public ResponseEntity<Object> handleTransacaoException(TransacaoException ex) {
-        String msg = ex.getMessage();
-        return new ResponseEntity<>(new ErrorDTO(msg), HttpStatus.NOT_FOUND);
-    }
+		return new ResponseEntity<>(new ErrorDTO(msg), HttpStatus.NOT_FOUND);
+	}
 }

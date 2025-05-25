@@ -47,7 +47,6 @@ public class TransacaoServiceTest {
 
 	@Test
 	void realizarTransacaoSucesso() {
-
 		Conta conta = new Conta();
 		conta.setNumeroConta(1);
 		conta.setSaldo(100f);
@@ -91,47 +90,47 @@ public class TransacaoServiceTest {
 		assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
 
 	}
-	
+
 	@Test
-    void realizarTransacaoComValorInvalidoDeveLancarExcecao() {
-        TransacaoDTO dto = new TransacaoDTO();
-        dto.setNumeroConta(1);
-        assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
+	void realizarTransacaoComValorInvalidoDeveLancarExcecao() {
+		TransacaoDTO dto = new TransacaoDTO();
+		dto.setNumeroConta(1);
+		assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
 
-        dto.setValor(0f);
-        assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
+		dto.setValor(0f);
+		assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
 
-        dto.setValor(-10f);
-        assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
-    }
-	
-    @Test
-    void toStringDeTransacaoDeveRetornarStringFormatada() {
-        Conta conta = new Conta();
-        conta.setId(UUID.randomUUID());
-        conta.setNumeroConta(123);
-        conta.setSaldo(500f);
+		dto.setValor(-10f);
+		assertThrows(TransacaoException.class, () -> transacaoService.realizarTransacao(dto));
+	}
 
-        Transacao transacao = new Transacao();
-        transacao.setConta(conta);
-        transacao.setFormaPagamento("P");
-        transacao.setValor(100f);
+	@Test
+	void toStringDeTransacaoDeveRetornarStringFormatada() {
+		Conta conta = new Conta();
+		conta.setId(UUID.randomUUID());
+		conta.setNumeroConta(123);
+		conta.setSaldo(500f);
 
-        String esperado = "Transacao [conta=" + conta.toString() + ", formaPagamento=P, valor=100.0]";
-        assertEquals(esperado, transacao.toString());
-    }
-    
-    @Test
-    void testConstrutorEGettersDaTransacao() {
+		Transacao transacao = new Transacao();
+		transacao.setConta(conta);
+		transacao.setFormaPagamento("P");
+		transacao.setValor(100f);
 
-        Conta conta = new Conta();
-        conta.setId(UUID.randomUUID());
-        conta.setNumeroConta(123);
-        conta.setSaldo(1000f);
-        Transacao transacao = new Transacao(conta, "P", 500f);
+		String esperado = "Transacao [conta=" + conta.toString() + ", formaPagamento=P, valor=100.0]";
+		assertEquals(esperado, transacao.toString());
+	}
 
-        UUID id = UUID.randomUUID();
-        transacao.setId(id);
-        assertEquals(id, transacao.getId());
-    }
+	@Test
+	void testConstrutorEGettersDaTransacao() {
+		Conta conta = new Conta();
+		conta.setId(UUID.randomUUID());
+		conta.setNumeroConta(123);
+		conta.setSaldo(1000f);
+		
+		Transacao transacao = new Transacao(conta, "P", 500f);
+		UUID id = UUID.randomUUID();
+		transacao.setId(id);
+		
+		assertEquals(id, transacao.getId());
+	}
 }

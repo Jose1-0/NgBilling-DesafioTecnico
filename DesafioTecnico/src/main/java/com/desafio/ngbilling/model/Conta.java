@@ -12,24 +12,22 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Conta {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-	
+
 	@Column(name = "numero_conta", nullable = false, unique = true)
 	private Integer numeroConta;
-	
+
 	@Column(nullable = false)
 	private Float saldo;
-	
-	
+
 	public Conta() {
 
 	}
 
 	public Conta(Integer numeroConta, float saldo) {
-
 		this.numeroConta = numeroConta;
 		this.saldo = saldo;
 	}

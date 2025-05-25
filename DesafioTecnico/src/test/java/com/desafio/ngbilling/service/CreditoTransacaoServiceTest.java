@@ -18,7 +18,7 @@ public class CreditoTransacaoServiceTest {
 
 	@InjectMocks
 	CreditoTransacaoService creditoTransacaoService;
-	
+
 	@Mock
 	Conta conta;
 
@@ -29,18 +29,19 @@ public class CreditoTransacaoServiceTest {
 
 	@Test
 	void transacao() {
-
 		Conta conta = new Conta();
 		conta.setNumeroConta(123);
 		conta.setSaldo(50.00f);
+
 		float valor = 40f;
+
 		assertDoesNotThrow(() -> creditoTransacaoService.transacao(conta, valor));
 	}
 
 	@Test
 	void transacaoComSaldoInsuficienteDeveLancarExcecao() {
-		
 		when(conta.getSaldo()).thenReturn(100f);
-		assertThrows(TransacaoException.class, () -> creditoTransacaoService.transacao(conta, 100f));	
+
+		assertThrows(TransacaoException.class, () -> creditoTransacaoService.transacao(conta, 100f));
 	}
 }

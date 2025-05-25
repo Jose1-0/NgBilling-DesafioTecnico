@@ -1,6 +1,6 @@
 package com.desafio.ngbilling.exception;
 
-public class ContaExeption extends RuntimeException{
+public class ContaExeption extends RuntimeException {
 
 	/**
 	 * 

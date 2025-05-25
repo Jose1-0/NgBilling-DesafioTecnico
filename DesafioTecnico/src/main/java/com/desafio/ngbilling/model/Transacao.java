@@ -17,18 +17,17 @@ public class Transacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-	
+
 	@ManyToOne(optional = false)
 	private Conta conta;
-	
+
 	@Column(name = "forma_pagamento", nullable = false)
 	private String formaPagamento;
-	
+
 	@Column(nullable = false)
 	private Float valor;
 
 	public Transacao(Conta conta, String formaPagamento, Float valor) {
-
 		this.conta = conta;
 		this.formaPagamento = formaPagamento;
 		this.valor = valor;
@@ -74,5 +73,5 @@ public class Transacao {
 	public String toString() {
 		return "Transacao [conta=" + conta + ", formaPagamento=" + formaPagamento + ", valor=" + valor + "]";
 	}
-	
+
 }

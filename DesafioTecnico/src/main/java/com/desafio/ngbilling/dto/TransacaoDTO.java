@@ -5,7 +5,7 @@ public class TransacaoDTO {
 	private String formaPagamento;
 	private Integer numeroConta;
 	private Float valor;
-	
+
 	public TransacaoDTO() {
 
 	}
@@ -32,7 +32,7 @@ public class TransacaoDTO {
 		this.numeroConta = numeroConta;
 	}
 
-	public Float  getValor() {
+	public Float getValor() {
 		return valor;
 	}
 

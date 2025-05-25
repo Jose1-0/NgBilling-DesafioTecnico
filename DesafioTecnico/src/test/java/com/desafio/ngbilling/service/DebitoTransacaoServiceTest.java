@@ -42,7 +42,6 @@ public class DebitoTransacaoServiceTest {
 		float valor = 10f;
 
 		assertThrows(TransacaoException.class, () -> debitoTransacaoService.transacao(conta, valor));
-
 	}
 
 	@Test
@@ -54,6 +53,5 @@ public class DebitoTransacaoServiceTest {
 		float valor = 1f;
 
 		assertThrows(TransacaoException.class, () -> debitoTransacaoService.transacao(conta, valor));
-
 	}
 }

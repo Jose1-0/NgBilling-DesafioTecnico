@@ -30,38 +30,37 @@ public class TransacaoService {
 
 	@Transactional
 	public Conta realizarTransacao(TransacaoDTO dto) {
-		
-	    Conta conta = validarTransacao(dto);
+		Conta conta = validarTransacao(dto);
 
-	    String formaPagamento = dto.getFormaPagamento().toUpperCase();
-	    ITransacao transacaoService = transacaoMap.get(formaPagamento);
+		String formaPagamento = dto.getFormaPagamento().toUpperCase();
+		ITransacao transacaoService = transacaoMap.get(formaPagamento);
 
-	    transacaoService.transacao(conta, dto.getValor());
+		transacaoService.transacao(conta, dto.getValor());
 
-	    contaRepository.save(conta);
-	    
-	    Transacao transacao = new Transacao(conta, dto.getFormaPagamento(), dto.getValor());
-	    transacaoRepository.save(transacao);
+		contaRepository.save(conta);
 
-	    return conta;
+		Transacao transacao = new Transacao(conta, dto.getFormaPagamento(), dto.getValor());
+		transacaoRepository.save(transacao);
+
+		return conta;
 	}
-	
+
 	private Conta validarTransacao(TransacaoDTO dto) {
-		
-	    if (dto.getValor() == null || dto.getValor() <= 0) {
-	        throw new TransacaoException("O valor da transação deve ser maior que zero");
-	    }
+		if (dto.getValor() == null || dto.getValor() <= 0) {
+			throw new TransacaoException("O valor da transação deve ser maior que zero");
+		}
 
-	    String formaPagamento = dto.getFormaPagamento().toUpperCase();
-	    ITransacao transacaoService = transacaoMap.get(formaPagamento);
+		String formaPagamento = dto.getFormaPagamento().toUpperCase();
+		ITransacao transacaoService = transacaoMap.get(formaPagamento);
 
-	    Conta conta = contaRepository.findByNumeroConta(dto.getNumeroConta())
-	            .orElseThrow(() -> new ContaExeption("conta não encontrada"));
+		Conta conta = contaRepository.findByNumeroConta(dto.getNumeroConta())
+				.orElseThrow(() -> new ContaExeption("conta não encontrada"));
 
-	    if (transacaoService == null) {
-	        throw new TransacaoException("Forma de pagamento inválida. Use P para Pix. Use D para débito e C para crédito");
-	    }
+		if (transacaoService == null) {
+			throw new TransacaoException(
+					"Forma de pagamento inválida. Use P para Pix. Use D para débito e C para crédito");
+		}
 
-	    return conta;
+		return conta;
 	}
 }
