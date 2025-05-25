@@ -11,13 +11,10 @@ public class PixTransacaoService implements ITransacao{
 
 	@Override
 	public void transacao(Conta conta, float valor) {
-		float taxa = 0.03f;
-        float valorComTaxa = valor * (1 + taxa);
-		
-		if(conta.getSaldo() < valorComTaxa || conta.getSaldo() == 0) {
-			throw new TransacaoException("Saldo insuficiente para transaferencia em Debito");
-		}
-		
-		conta.setSaldo(conta.getSaldo() - valorComTaxa);
-	}
+
+		if (conta.getSaldo() < valor) {
+            throw new TransacaoException("Saldo insuficiente para transação Pix");
+        }
+        conta.setSaldo(conta.getSaldo() - valor);
+    }
 }
