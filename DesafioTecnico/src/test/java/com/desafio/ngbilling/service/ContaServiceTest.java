@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.desafio.ngbilling.dto.ContaDTO;
 import com.desafio.ngbilling.exception.ContaExeption;
 import com.desafio.ngbilling.model.Conta;
 import com.desafio.ngbilling.repository.ContaRepository;
@@ -35,25 +36,27 @@ public class ContaServiceTest {
     @Test
     void criarContaComSaldoNegativoDeveLancarExcecao() {
         
-    	Conta conta = new Conta(1, -10f);      
+    	ContaDTO conta = new ContaDTO(1, -10f);      
         assertThrows(ContaExeption.class, () -> contaService.criarConta(conta));
     }
 
     @Test
     void criarContaComContaExistenteDeveLancarExcecao() {
     	
-        Conta conta = new Conta(1, 10f);
+    	ContaDTO contaDTO = new ContaDTO(1, 10f);
+    	Conta conta = new Conta(1, 10f);
         when(contaRepository.findByNumeroConta(1)).thenReturn(Optional.of(conta));
-        assertThrows(ContaExeption.class, () -> contaService.criarConta(conta));
+        assertThrows(ContaExeption.class, () -> contaService.criarConta(contaDTO));
     }
 
     @Test
     void criarContaComDadosValidosDeveSalvarConta() {
     	
-        Conta conta = new Conta(1, 100f);
+    	ContaDTO contaDTO = new ContaDTO(1, 10f);
+    	Conta conta = new Conta(1, 10f);
         when(contaRepository.findByNumeroConta(1)).thenReturn(Optional.empty());
         when(contaRepository.save(conta)).thenReturn(conta);
-        assertDoesNotThrow(()-> contaService.criarConta(conta));
+        assertDoesNotThrow(()-> contaService.criarConta(contaDTO));
     }
 
     @Test
@@ -66,7 +69,7 @@ public class ContaServiceTest {
     }
 
     @Test
-    void buscarConta_comContaInexistente_deveLancarExcecao() {
+    void buscarContaComContaInexistenteDeveLancarExcecao() {
     	
         when(contaRepository.findByNumeroConta(1)).thenReturn(Optional.empty());
        assertThrows(ContaExeption.class, () -> contaService.buscarConta(1));
@@ -74,12 +77,14 @@ public class ContaServiceTest {
     
     @Test
     void criarContaComNumeroContaInvalidoDeveLancarExcecao() {
-        Conta conta = new Conta(-1, 100f);
-        assertThrows(ContaExeption.class, () -> contaService.criarConta(conta));
+    	
+    	ContaDTO contaDTO = new ContaDTO(-1, 10f);
+        assertThrows(ContaExeption.class, () -> contaService.criarConta(contaDTO));
     }
     
     @Test
     void toStringDeveRetornarStringFormatadaCorretamente() {
+    	
         Conta conta = new Conta();
         conta.setId(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
         conta.setNumeroConta(123);

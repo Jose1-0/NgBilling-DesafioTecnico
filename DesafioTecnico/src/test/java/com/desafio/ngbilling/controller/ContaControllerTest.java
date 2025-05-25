@@ -45,7 +45,7 @@ public class ContaControllerTest {
         ContaDTO contaDTO = new ContaDTO(123, 100f);
         Conta conta = new Conta(123, 100f);
 
-        when(contaService.criarConta(any(Conta.class))).thenReturn(conta);
+        when(contaService.criarConta(any(ContaDTO.class))).thenReturn(conta);
 
         mockMvc.perform(post("/conta")
                 .contentType(MediaType.APPLICATION_JSON)
