@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.desafio.ngbilling.dto.ContaDTO;
 import com.desafio.ngbilling.model.Conta;
-import com.desafio.ngbilling.service.ContaService;
+import com.desafio.ngbilling.service.impl.ContaService;
 
 @RestController
 @RequestMapping("/conta")

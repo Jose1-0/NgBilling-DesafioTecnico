@@ -1,4 +1,4 @@
-package com.desafio.ngbilling.service;
+package com.desafio.ngbilling.service.impl;
 
 import java.util.Optional;
 
