@@ -25,9 +25,9 @@ public class Transacao {
 	private String formaPagamento;
 	
 	@Column(nullable = false)
-	private float valor;
+	private Float valor;
 
-	public Transacao(Conta conta, String formaPagamento, float valor) {
+	public Transacao(Conta conta, String formaPagamento, Float valor) {
 
 		this.conta = conta;
 		this.formaPagamento = formaPagamento;
@@ -62,11 +62,11 @@ public class Transacao {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public float getValor() {
+	public Float getValor() {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
 

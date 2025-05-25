@@ -21,7 +21,7 @@ public class Conta {
 	private Integer numeroConta;
 	
 	@Column(nullable = false)
-	private float saldo;
+	private Float saldo;
 	
 	
 	public Conta() {
@@ -50,11 +50,11 @@ public class Conta {
 		this.numeroConta = numeroConta;
 	}
 
-	public float getSaldo() {
+	public Float getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(Float saldo) {
 		this.saldo = saldo;
 	}
 

@@ -21,7 +21,7 @@ public class ContaService {
 			throw new ContaExeption("Número de conta inválido");
 		}
 
-		if (conta.getSaldo() < 0) {
+		if (conta.getSaldo() < 0 || conta.getSaldo() == null) {
 			throw new ContaExeption("O saldo Inicial não pode ser negativo.");
 		}
 

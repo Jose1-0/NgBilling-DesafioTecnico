@@ -30,7 +30,11 @@ public class TransacaoService {
 
 	@Transactional
 	public Conta realizarTransacao(TransacaoDTO dto) {
-
+		
+		if (dto.getValor() == null || dto.getValor() <= 0) {
+	        throw new TransacaoException("O valor da transação deve ser maior que zero");
+	    }
+		
 		Conta conta = contaRepository.findByNumeroConta(dto.getNumeroConta())
 				.orElseThrow(() -> new ContaExeption("conta não encontrada"));
 		

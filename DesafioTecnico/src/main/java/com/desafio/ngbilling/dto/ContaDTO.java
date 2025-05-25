@@ -8,12 +8,12 @@ public class ContaDTO {
 	private Integer numeroConta;
 
 	@JsonProperty(index = 2)
-	private float saldo;
+	private Float saldo;
 
 	public ContaDTO() {
 	}
 
-	public ContaDTO(Integer numeroConta, float saldo) {
+	public ContaDTO(Integer numeroConta, Float saldo) {
 		this.numeroConta = numeroConta;
 		this.saldo = (float) (Math.round(saldo * 100.0) / 100.0);
 	}
@@ -26,11 +26,11 @@ public class ContaDTO {
 		this.numeroConta = numeroConta;
 	}
 
-	public float getSaldo() {
+	public Float getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(Float saldo) {
 		this.saldo = saldo;
 	}
 
